@@ -68,6 +68,21 @@ router.get('/', async (req, res) => {
         console.error('Error fetching orders:', error.message);
         res.status(500).json({ message: 'Failed to fetch orders', error: error.message });
     }
+    
+});
+
+router.get('/:orderId', async (req, res) => {
+    const { orderId } = req.params;
+    try {
+        const order = await Order.findOne({ orderId });
+        if (!order) {
+            return res.status(404).json({ message: 'Order not found' });
+        }
+        res.json(order);
+    } catch (error) {
+        console.error('Error fetching order:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
 });
 
 
