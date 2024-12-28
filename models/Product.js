@@ -2,14 +2,14 @@
 const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({
-    _id: { type: String, required: true }, // Document ID (as in your data)
-    disc: { type: String, required: true }, // Description
-    discount: { type: Number, required: true }, // Discount percentage
-    id: { type: Number, required: true }, // Product ID
-    image: { type: String, required: true }, // Image URL
-    price: { type: Number, required: true }, // Price of the product
-    rating: { type: Number, required: true }, // Rating (e.g., 1-5)
-    title: { type: String, required: true }, // Product title
+    id: { type: Number, required: true, unique: true },
+    title: { type: String, required: true },
+    disc: { type: String, required: true },
+    image: { type: String },
+    price: { type: Number, required: true },
+    discount: { type: Number, default: 0 },
+    rating: { type: Number, min: 1, max: 5, default: 1 },
+    category: { type: String, required: true } // New category field
 }, { timestamps: true }); // Adds createdAt and updatedAt fields
 
 // Create a model from the schema
