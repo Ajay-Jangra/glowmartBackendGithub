@@ -105,5 +105,27 @@ router.get('/:id/status', async (req, res) => {
     }
 });
 
+router.put('/:orderId', async (req, res) => {
+    const { orderId } = req.params;
+    const { paymentStatus, orderStatus } = req.body;
+
+    try {
+        const order = await Order.findOne({ orderId });
+        if (!order) {
+            return res.status(404).json({ message: 'Order not found' });
+        }
+
+        if (paymentStatus) order.paymentStatus = paymentStatus;
+        if (orderStatus) order.orderStatus = orderStatus;
+
+        await order.save();
+        res.json({ message: 'Order updated successfully', order });
+    } catch (error) {
+        console.error('Error updating order:', error.message);
+        res.status(500).json({ message: 'Failed to update order', error: error.message });
+    }
+});
+
+
 
 module.exports = router;
