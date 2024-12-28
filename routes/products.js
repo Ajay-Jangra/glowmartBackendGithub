@@ -13,15 +13,16 @@ router.get('/', async (req, res) => {
         res.status(500).json({ message: 'Failed to fetch products', error: err.message });
     }
 });
-// Add new product
 router.post('/', async (req, res) => {
     const { id, title, disc, image, price, discount, rating, category } = req.body;
+    console.log(req.body);  // Log the request body to check the data being sent
 
     try {
         const newProduct = new Product({ id, title, disc, image, price, discount, rating, category });
         await newProduct.save();
         res.status(201).json(newProduct);
     } catch (error) {
+        console.error("Error saving product:", error);  // Log error for debugging
         res.status(500).json({ message: 'Failed to create product', error: error.message });
     }
 });
