@@ -14,20 +14,9 @@ router.get('/', async (req, res) => {
     }
 });
    
-
-router.post('/', async (req, res) => {
-    const { name, description, image, price } = req.body;
-
-    try {
-        const product = await Product.create({ name, description, image, price });
-        res.status(201).json(product);
-    } catch (error) {
-        res.status(400).json({ message: 'Error adding product', error });
-    }
-});
 // Add new product
 router.post('/', async (req, res) => {
-    const { id,title, disc, image, price, discount,rating  } = req.body;
+    const { id, title, disc, image, price, discount, rating } = req.body;
     try {
         const newProduct = new Product({ id, title, disc, image, price, discount, rating });
         await newProduct.save();
@@ -36,6 +25,7 @@ router.post('/', async (req, res) => {
         res.status(500).json({ message: 'Failed to create product', error: error.message });
     }
 });
+
 
 // Update product
 router.put('/:id', async (req, res) => {
