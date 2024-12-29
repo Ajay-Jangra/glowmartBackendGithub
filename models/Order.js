@@ -41,10 +41,10 @@ const OrderSchema = new mongoose.Schema({
     paymentStatus: {
         type: String,
         enum: ['Pending', 'Paid', 'Failed'],
-        default: 'Pending',
+        default: 'Processing',
     },
     paymentId: { type: String }, // Optional field
-    orderStatus: { type: String, default: 'Pending' }, // Default status is 'Pending'
+    orderStatus: { type: String, default: 'Packing & Processing' }, // Default status is 'Pending'
     createdAt: { type: Date, default: Date.now },
 });
 
